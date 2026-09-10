@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // API call ke liye
+import { API } from '../utils/Axios';
 import { toast } from 'react-toastify'; // Success/Error message dikhane ke liye
 
 export default function SettingsPage() {
@@ -24,7 +24,7 @@ export default function SettingsPage() {
     const fetchProfileData = async () => {
       try {
         // Aapke backend ka URL jahan GET /profile route hai
-        const response = await axios.get('http://localhost:5000/api/user/profile', {
+        const response = await API.get('/user/profile', {
           withCredentials: true // Ye zaroori hai taaki cookies (token) backend tak jaye
         });
         
@@ -48,7 +48,7 @@ export default function SettingsPage() {
   const handleProfileUpdate = async (e) => {
     e.preventDefault(); // Page refresh hone se rokne ke liye
     try {
-      const response = await axios.put('http://localhost:5000/api/user/update-profile', profileData, {
+      const response = await API.put('/user/update-profile', profileData, {
         withCredentials: true
       });
       toast.success("Profile Updated Successfully!");
@@ -62,7 +62,7 @@ export default function SettingsPage() {
   const handlePasswordUpdate = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put('http://localhost:5000/api/user/update-password', passwordData, {
+      const response = await API.put('/user/update-password', passwordData, {
         withCredentials: true
       });
       toast.success("Password changed successfully!");
